@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kleingärtnerverein Neuland List e.V.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <a href="#" class="logo-link">
+        <img src="logo.png.png" alt="Logo Kleingärtnerverein Neuland List e.V." class="logo">
+        <h1>Kleingärtnerverein Neuland List e.V.</h1>
+    </a>
+    <button class="burger" id="burger">☰</button>
+    <nav id="nav">
+        <ul>
+            <li><a href="#">Startseite</a></li>
+            <li><a href="#">Verein</a></li>
+            <li><a href="#">Gartenplan</a></li>
+            <li><a href="#">Freie Gärten</a></li>
+            <li><a href="#">Galerie</a></li>
+            <li><a href="#">Kontakt</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-text">
+        <h2>Willkommen im Grünen</h2>
+        <p>Zwei Kolonien, eine Gemeinschaft – seit 1957</p>
+    </div>
+</section>
+
+<main>
+    <div class="karten">
+        <div class="karte">
+            <h3>Vorstand</h3>
+            <p>Hier stellt sich künftig unser Vorstand vor – mit Namen, Ämtern und den passenden Ansprechpartnern für eure Anliegen.</p>
+        </div>
+        <div class="karte">
+            <h3>Gartenplan</h3>
+            <p>Ein Übersichtsplan zeigt euch, wie unsere beiden Kolonien "Unter den Kirschen" und "Paradies" aufgeteilt sind.</p>
+        </div>
+        <div class="karte">
+            <h3>Freie Gärten</h3>
+            <p>Interesse an einer eigenen Parzelle? Hier findet ihr bald eine aktuelle Übersicht freier Gärten.</p>
+        </div>
+        <div class="karte">
+            <h3>Kontakt</h3>
+            <p>Fragen an den Verein? Kontaktdaten und Ansprechpartner findet ihr hier in Kürze.</p>
+        </div>
+    </div>
+</main>
+
+<section class="galerie">
+    <h2>Vereinsfeste</h2>
+    <div class="galerie-bilder">
+        <img src="https://via.placeholder.com/300x200" alt="Vereinsfest Foto 1">
+        <img src="https://via.placeholder.com/300x200" alt="Vereinsfest Foto 2">
+        <img src="https://via.placeholder.com/300x200" alt="Vereinsfest Foto 3">
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inhalt">
+        <div class="footer-block">
+            <h4>Kleingärtnerverein Neuland List e.V.</h4>
+            <p>Musterstraße 1<br>30161 Hannover</p>
+        </div>
+        <div class="footer-block">
+            <h4>Kontakt</h4>
+            <p>Telefon: 0511 123456<br>E-Mail: info@kgv-neuland-list.de</p>
+        </div>
+        <div class="footer-block">
+            <h4>Rechtliches</h4>
+            <nav>
+                <a href="#">Impressum</a>
+                <a href="#">Datenschutz</a>
+            </nav>
+        </div>
+    </div>
+    <p class="copyright">&copy; 2026 Kleingärtnerverein Neuland List e.V.</p>
+</footer>
+
+<script>
+document.getElementById("burger").addEventListener("click", function() {
+    document.querySelector("nav ul").classList.toggle("offen");
+});
+</script>
+
+</body>
+</html>

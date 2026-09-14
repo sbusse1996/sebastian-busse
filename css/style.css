@@ -1,0 +1,1015 @@
+/* ==================================================
+   GRUNDLAGEN
+   ================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+
+    color: #202522;
+    background: #ffffff;
+}
+
+
+/* ==================================================
+   HEADER
+   ================================================== */
+
+header {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 60px 55px 35px;
+    border-bottom: 1px solid #E5E9E6;
+}
+
+header h1 {
+    margin: 0;
+
+    font-size: 36px;
+    font-weight: bold;
+
+    color: #202522;
+}
+
+header p {
+    margin: 8px 0 0;
+
+    font-size: 14px;
+    letter-spacing: 2px;
+
+    color: #183C32;
+}
+
+
+/* ==================================================
+   MAIN
+   ================================================== */
+
+main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 65px 55px 90px;
+}
+
+
+/* ==================================================
+   PROJEKTE
+   ================================================== */
+
+.projekte h2 {
+    margin: 0 0 25px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    color: #183C32;
+}
+
+
+/* ==================================================
+   PROJEKT
+   ================================================== */
+
+.projekt {
+    border-top: 1px solid #E5E9E6;
+}
+
+.projekt:last-child {
+    border-bottom: 1px solid #E5E9E6;
+}
+
+
+/* ==================================================
+   SUMMARY
+   ================================================== */
+
+.projekt summary {
+    display: grid;
+
+    grid-template-columns: 80px 1fr;
+
+    align-items: center;
+
+    min-height: 82px;
+
+    cursor: pointer;
+
+    list-style: none;
+}
+
+.projekt summary::-webkit-details-marker {
+    display: none;
+}
+
+.projekt summary::after {
+    content: "+";
+
+    justify-self: end;
+
+    font-size: 20px;
+
+    color: #183C32;
+}
+
+.projekt[open] summary::after {
+    content: "−";
+}
+
+
+.projekt-jahr {
+    font-size: 12px;
+
+    color: #69716D;
+}
+
+.projekt-titel {
+    font-size: 18px;
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    color: #183C32;
+}
+
+
+/* ==================================================
+   PROJEKT-INHALT
+   ================================================== */
+
+.projekt-inhalt {
+    padding: 5px 0 30px 80px;
+
+    max-width: 900px;
+}
+
+.projekt-inhalt p {
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 23px;
+    color: #202522;
+}
+
+
+/* ==================================================
+   NORMALES PROJEKTBILD
+   ================================================== */
+
+.projekt-bild {
+    display: block;
+
+    width: 100%;
+    max-width: 600px;
+
+    height: auto;
+
+    margin: 20px 0;
+}
+
+
+/* ==================================================
+   HOCHZEITSKARTE
+   ================================================== */
+
+.karten-bereich {
+    margin-top: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.karten-hinweis {
+    margin-bottom: 20px !important;
+
+    font-size:13px !important;
+
+    color: #69716D !important;
+}
+
+
+/* ==================================================
+   3D-RAUM
+   ================================================== */
+
+.karten-raum {
+	order: 2;
+    width: 100%;
+    height: 680px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+	
+	padding-top: 0px;
+
+    perspective: 1400px;
+
+    overflow: visible;
+}
+
+
+/* ==================================================
+   3D-OBJEKT
+   ================================================== */
+
+.karten-objekt {
+
+    position: relative;
+
+
+    width: 470px;
+    height: 658px;
+
+    transform-style: preserve-3d;
+
+    transform:
+        rotateX(8deg)
+        rotateY(0deg);
+	
+	scale: 0.85;
+
+    transition:
+        transform 0.15s ease;
+
+    cursor: grab;
+}
+
+.karten-objekt:active {
+    cursor: grabbing;
+}
+
+
+/* ==================================================
+   ALLE KARTEN-FACES
+   ================================================== */
+
+.karte-face {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 500px;
+    height: 350px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    backface-visibility: hidden;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.16);
+}
+
+.karte-face img {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* ==================================================
+   GESCHLOSSENE KARTE
+   ================================================== */
+
+.karte-geschlossen {
+
+    position: absolute;
+
+    left: 0;
+    top: 175px;
+
+    width: 500px;
+    height: 350px;
+
+    transform-style: preserve-3d;
+
+    transition:
+        opacity 0.6s ease;
+}
+
+
+/* Vorderseite geschlossen */
+
+.geschlossen-vorne {
+
+    transform:
+        rotateY(0deg)
+        translateZ(4px);
+}
+
+.geschlossen-vorne img {
+
+    transform: rotate(180deg);
+}
+
+
+/* Rückseite geschlossen */
+
+.geschlossen-hinten {
+
+    transform:
+        rotateY(180deg)
+        translateZ(4px);
+}
+
+
+/* ==================================================
+   GEÖFFNETE KARTE
+   ================================================== */
+
+.karte-offen {
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 500px;
+    height: 700px;
+
+    transform-style: preserve-3d;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.6s ease;
+}
+
+
+/* ==================================================
+   OFFENE HÄLFTEN
+   ================================================== */
+
+.offene-haelfte {
+
+    position: absolute;
+
+    left: 0;
+
+    width: 500px;
+    height: 350px;
+
+    transform-style: preserve-3d;
+}
+
+
+/* Obere Hälfte */
+
+.offene-oben {
+    top: 0;
+}
+
+
+/* Untere Hälfte */
+
+.offene-unten {
+    top: 350px;
+}
+
+
+/* ==================================================
+   INNENSEITE 02
+   ================================================== */
+
+.innen-02 {
+
+    transform:
+        rotateY(0deg)
+        translateZ(3px);
+}
+
+
+/* ==================================================
+   AUSSENSEITE 01
+   ================================================== */
+
+.aussen-01 {
+
+    transform:
+        rotateY(180deg)
+        translateZ(3px);
+}
+
+.aussen-01 img {
+
+    transform: none;
+}
+
+
+/* ==================================================
+   INNENSEITE 03
+   ================================================== */
+
+.innen-03 {
+
+    transform:
+        rotateY(0deg)
+        translateZ(3px);
+}
+
+
+/* ==================================================
+   AUSSENSEITE 04
+   ================================================== */
+
+.aussen-04 {
+
+    transform:
+        rotateY(180deg)
+        translateZ(3px);
+}
+
+
+/* ==================================================
+   GEÖFFNETER ZUSTAND
+   ================================================== */
+
+.karten-bereich.geoeffnet .karte-geschlossen {
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+.karten-bereich.geoeffnet .karte-offen {
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+/* ==================================================
+   STEUERUNG
+   ================================================== */
+
+.karten-steuerung {
+	order: 1;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+.karten-steuerung button {
+
+    border: 1px solid #183C32;
+
+    background: #ffffff;
+
+    color: #183C32;
+
+    padding: 8px 14px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.karten-steuerung button:hover {
+
+    background: #183C32;
+
+    color: #ffffff;
+}
+
+
+/* ==================================================
+   STATUS
+   ================================================== */
+
+.karten-status {
+	order: 3;
+	
+    margin-top: 10px !important;
+
+    text-align: center;
+
+    font-size: 9px !important;
+
+    color: #69716D !important;
+}
+
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+footer p {
+
+    margin: 0;
+
+    font-size: 9px;
+
+    color: #69716D;
+}
+
+
+/* ==================================================
+   MOBILE
+   ================================================== */
+
+@media (max-width: 700px) {
+
+    header {
+        padding: 30px 20px 20px;
+    }
+
+    main {
+        padding: 30px 20px 60px;
+    }
+
+    .projekt summary {
+        grid-template-columns: 55px 1fr;
+
+        min-height: 58px;
+    }
+
+    .projekt-inhalt {
+        padding-left: 55px;
+    }
+
+    .karten-raum {
+        height: 500px;
+    }
+
+    .karten-objekt {
+        width: 340px;
+        height: 476px;
+    }
+
+    .karte-face {
+        width: 340px;
+        height: 238px;
+    }
+
+    .karte-geschlossen {
+        width: 340px;
+        height: 238px;
+
+        top: 119px;
+    }
+
+    .karte-offen {
+        width: 340px;
+        height: 476px;
+    }
+
+    .offene-haelfte {
+        width: 340px;
+        height: 238px;
+    }
+
+    .offene-unten {
+        top: 238px;
+    }
+
+}
+
+/* ==================================================
+   DTP-BROSCHÜRE
+   GRUNDLAYOUT
+   ================================================== */
+
+.broschuere-bereich {
+    margin-top: 30px;
+}
+
+
+/* ==================================================
+   BROSCHÜREN-RAUM
+   ================================================== */
+
+.broschuere-raum {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 0;
+
+    perspective: 1600px;
+}
+
+
+/* ==================================================
+   BROSCHÜRE
+   ================================================== */
+
+.broschuere {
+
+    position: relative;
+
+    width: 850px;
+    height: 600px;
+
+    display: flex;
+
+    transform-style: preserve-3d;
+}
+
+/* ==================================================
+   EINZELSEITE / DOPPELSEITE
+   ================================================== */
+
+.broschuere.single {
+
+    width: 425px;
+}
+
+
+.broschuere.doppelseite {
+
+    width: 850px;
+}
+
+
+.broschuere.single .broschuere-seite {
+
+    width: 100%;
+}
+
+
+/* ==================================================
+   EINZELNE SEITE
+   ================================================== */
+
+.broschuere-seite {
+
+    width: 50%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ==================================================
+   BILD DER SEITE
+   ================================================== */
+
+.broschuere-seite img {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* ==================================================
+   MITTELFALZ
+   ================================================== */
+
+.broschuere-seite:first-child {
+
+    border-right: 1px solid #d5d9d6;
+}
+
+
+/* ==================================================
+   STEUERUNG
+   ================================================== */
+
+.broschuere-steuerung {
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+
+.broschuere-steuerung button {
+
+    border: 1px solid #183C32;
+
+    background: #ffffff;
+
+    color: #183C32;
+
+    padding: 8px 14px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.broschuere-steuerung button:hover {
+
+    background: #183C32;
+
+    color: #ffffff;
+}
+
+
+/* ==================================================
+   STATUS
+   ================================================== */
+
+.broschuere-status {
+
+    margin-top: 10px !important;
+
+    text-align: center;
+
+    font-size: 9px !important;
+
+    color: #69716D !important;
+}
+
+
+/* ==================================================
+   MOBILE
+   ================================================== */
+
+@media (max-width: 700px) {
+
+    .broschuere {
+
+        width: 100%;
+
+        height: auto;
+
+        aspect-ratio: 1.4167;
+    }
+
+    .broschuere-raum {
+
+        padding: 20px 0;
+    }
+
+}
+
+/* ==================================================
+   PROJEKT-LINK
+   ================================================== */
+
+.projekt-link {
+    display: inline-block;
+
+    margin-top: 5px;
+
+    padding: 8px 14px;
+
+    border: 1px solid #183C32;
+
+    color: #183C32;
+
+    text-decoration: none;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.projekt-link:hover {
+    background: #183C32;
+    color: #ffffff;
+}
+
+/* ==================================================
+   LOGO-VERGLEICH – NEULAND LIST
+   ================================================== */
+
+.logo-projekt {
+    margin-top: 30px;
+}
+
+.logo-projekt h3 {
+    margin: 0 0 8px 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+
+    color: #183C32;
+}
+
+.logo-projekt p {
+    margin: 0 0 20px 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    line-height: 1.5;
+
+    color: #202522;
+}
+
+
+.logo-vergleich {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+
+.logo-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    flex: 1;
+}
+
+
+.logo-item span {
+    font-family: Arial, sans-serif;
+    font-size: 9.5px;
+
+    color: #69716D;
+}
+
+
+.logo-item img {
+    display: block;
+
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+}
+
+
+.logo-pfeil {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+
+    color: #183C32;
+}
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+.footer {
+	width: 100%;
+	
+    margin-top: 80px;
+
+    padding: 40px 0 20px 0;
+
+    background: #202522;
+    color: #ffffff;
+}
+
+
+.footer-inhalt {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 18px;
+}
+
+
+.footer-person h2 {
+    margin: 0 0 8px 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+
+    color: #ffffff;
+}
+
+
+.footer-person p {
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+
+    color: #E5E9E6;
+}
+
+
+.footer-kontakt {
+    text-align: right;
+}
+
+
+.footer-kontakt p {
+    margin: 0 0 10px 0;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    line-height: 1.5;
+
+    color: #E5E9E6;
+}
+
+
+.footer-kontakt a {
+    color: #ffffff;
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+
+.footer-kontakt a:hover {
+    color: #E5E9E6;
+}
+
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+
+    max-width: 1100px;
+    margin: 25px auto 0 auto;
+    padding: 15px 18px 0 18px;
+
+    border-top: 1px solid #69716D;
+
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+
+    color: #69716D;
+}
+
+
+/* ==================================================
+   FOOTER – MOBILE
+   ================================================== */
+
+@media (max-width: 600px) {
+
+    .footer-inhalt {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+
+    .footer-kontakt {
+        text-align: left;
+    }
+
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+}
+
