@@ -8,20 +8,20 @@
 </head>
 <body>
 
-<header>
-    <a href="#" class="logo-link">
+<header id="start">
+    <a href="#start" class="logo-link">
         <img src="Bilder/logo.png" alt="Logo Kleingärtnerverein Neuland List e.V." class="logo">
         <h1>Kleingärtnerverein Neuland List e.V.</h1>
     </a>
     <button class="burger" id="burger">☰</button>
     <nav id="nav">
         <ul>
-            <li><a href="#">Startseite</a></li>
-            <li><a href="#">Verein</a></li>
-            <li><a href="#">Gartenplan</a></li>
-            <li><a href="#">Freie Gärten</a></li>
-            <li><a href="#">Galerie</a></li>
-            <li><a href="#">Kontakt</a></li>
+            <li><a href="#start">Startseite</a></li>
+            <li><a href="#verein">Verein</a></li>
+            <li><a href="#gartenplan">Gartenplan</a></li>
+            <li><a href="#freie-gaerten">Freie Gärten</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
         </ul>
     </nav>
 </header>
@@ -34,6 +34,7 @@
 </section>
 
 <main>
+
     <div class="karten">
         <div class="karte">
             <h3>Vorstand</h3>
@@ -52,18 +53,111 @@
             <p>Fragen an den Verein? Kontaktdaten und Ansprechpartner findet ihr hier in Kürze.</p>
         </div>
     </div>
+
+
+    <section class="verein-info" id="verein">
+
+        <h2>Der Verein</h2>
+
+        <p>
+            Der Kleingärtnerverein Neuland List e.V. wurde 1957
+            gegründet und vereint seither zwei Kolonien mitten in
+            Hannover: "Unter den Kirschen" und "Paradies". Über 60
+            Jahre gewachsene Gemeinschaft, in der Gartenfreude und
+            gutes Miteinander im Mittelpunkt stehen.
+        </p>
+
+        <div class="vorstand-liste">
+
+            <div class="vorstand-person">
+                <span class="vorstand-name">Max Mustermann</span>
+                <span class="vorstand-amt">1. Vorsitzender</span>
+            </div>
+
+            <div class="vorstand-person">
+                <span class="vorstand-name">Erika Mustermann</span>
+                <span class="vorstand-amt">2. Vorsitzende</span>
+            </div>
+
+            <div class="vorstand-person">
+                <span class="vorstand-name">Peter Mustermann</span>
+                <span class="vorstand-amt">Kassenwart</span>
+            </div>
+
+            <div class="vorstand-person">
+                <span class="vorstand-name">Anna Mustermann</span>
+                <span class="vorstand-amt">Schriftführerin</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="gartenplan-info" id="gartenplan">
+
+        <h2>Gartenplan</h2>
+
+        <p>
+            Unsere beiden Kolonien gliedern sich in insgesamt 84
+            Parzellen. "Unter den Kirschen" liegt ruhig am
+            Waldrand, "Paradies" direkt am Vereinsheim mit kurzen
+            Wegen zu Wasseranschluss und Gemeinschaftsflächen. Ein
+            detaillierter Lageplan mit allen Parzellennummern folgt
+            in Kürze an dieser Stelle.
+        </p>
+
+    </section>
+
+
+    <section class="freie-gaerten-info" id="freie-gaerten">
+
+        <h2>Freie Gärten</h2>
+
+        <p>Aktuell freie bzw. demnächst frei werdende Parzellen:</p>
+
+        <div class="garten-liste">
+
+            <div class="garten-eintrag">
+                <span class="garten-nr">Parzelle 12</span>
+                <span class="garten-groesse">280 m² · Unter den Kirschen</span>
+                <span class="garten-status status-frei">frei</span>
+            </div>
+
+            <div class="garten-eintrag">
+                <span class="garten-nr">Parzelle 27</span>
+                <span class="garten-groesse">310 m² · Paradies</span>
+                <span class="garten-status status-bald">ab Frühjahr</span>
+            </div>
+
+            <div class="garten-eintrag">
+                <span class="garten-nr">Parzelle 41</span>
+                <span class="garten-groesse">250 m² · Unter den Kirschen</span>
+                <span class="garten-status status-frei">frei</span>
+            </div>
+
+        </div>
+
+    </section>
+
 </main>
 
-<section class="galerie">
+<section class="galerie" id="galerie">
     <h2>Vereinsfeste</h2>
     <div class="galerie-bilder">
-        <img src="https://via.placeholder.com/300x200" alt="Vereinsfest Foto 1">
-        <img src="https://via.placeholder.com/300x200" alt="Vereinsfest Foto 2">
-        <img src="https://via.placeholder.com/300x200" alt="Vereinsfest Foto 3">
+        <div class="galerie-platzhalter">
+            <span>Sommerfest 2025</span>
+        </div>
+        <div class="galerie-platzhalter">
+            <span>Erntedank</span>
+        </div>
+        <div class="galerie-platzhalter">
+            <span>Tag der offenen Gartentür</span>
+        </div>
     </div>
 </section>
 
-<footer>
+<footer id="kontakt">
     <div class="footer-inhalt">
         <div class="footer-block">
             <h4>Kleingärtnerverein Neuland List e.V.</h4>

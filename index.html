@@ -18,11 +18,12 @@
 
 
 <header>
-
     <h1>Sebastian Busse</h1>
 
-    <p>MEDIENGESTALTER DIGITAL · IN UMSCHULUNG</p>
-
+    <p>
+        <span>MEDIENGESTALTER DIGITAL ·</span>
+        <span>IN UMSCHULUNG</span>
+    </p>
 </header>
 
 
@@ -34,7 +35,106 @@
     <h2>PROJEKTE</h2>
 
 
-    <!-- TYPOGRAFIE-PLAKAT -->
+    <!-- NEULAND LIST -->
+
+    <details class="projekt" open>
+
+        <summary>
+
+            <span class="projekt-jahr">2026</span>
+
+            <span class="projekt-titel">
+                Neuland List e.V.
+            </span>
+
+        </summary>
+
+
+        <div class="projekt-inhalt">
+
+            <p>
+                Laufendes Webdesign-Projekt · HTML/CSS ·
+                Responsive Design
+            </p>
+
+            <p>
+                Konzeption und Umsetzung einer neuen Website für den
+                Kleingärtnerverein Neuland List e.V. – von der
+                Struktur über responsives Design bis zur
+                Überarbeitung des Vereinslogos.
+            </p>
+
+
+            <img
+                src="bilder/kleingarten.png"
+                alt="Screenshot der Kleingärtnerverein Neuland List e.V. Website"
+                class="projekt-bild">
+
+
+            <a
+                href="kgv-neu/index.html"
+                class="projekt-link">
+                Projekt ansehen →
+            </a>
+
+
+            <div class="logo-projekt">
+
+                <h3>Aus alt mach neu</h3>
+
+                <p>
+                    Überarbeitung des bestehenden Vereinslogos
+                    im Rahmen des Webdesign-Projekts für den
+                    Kleingärtnerverein Neuland List e.V.
+                </p>
+
+                <div class="logo-vergleich">
+
+                    <div class="logo-item">
+
+                        <span>Altes Logo</span>
+
+                        <div class="zoom-bild logo-zoom">
+                            <img
+                                src="bilder/kgv-alt.png"
+                                alt="Altes Logo des Kleingärtnervereins Neuland List e.V.">
+                        </div>
+
+                    </div>
+
+
+                    <div class="logo-pfeil">
+                        →
+                    </div>
+
+
+                    <div class="logo-item">
+
+                        <span>Neues Logo</span>
+
+                        <div class="zoom-bild logo-zoom">
+                            <img
+                                src="bilder/kgv-logo-neu.png"
+                                alt="Neues Logo des Kleingärtnervereins Neuland List e.V.">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p class="zoom-hinweis">
+                    Zum Vergrößern auf ein Logo klicken.
+                </p>
+
+            </div>
+
+        </div>
+
+    </details>
+
+
+
+    <!-- HANNOVER 96 -->
 
     <details class="projekt">
 
@@ -43,7 +143,7 @@
             <span class="projekt-jahr">2026</span>
 
             <span class="projekt-titel">
-                Typografie-Plakat
+                Hannover 96
             </span>
 
         </summary>
@@ -51,18 +151,131 @@
 
         <div class="projekt-inhalt">
 
-            <p>Plakatgestaltung</p>
-
-            <img
-                class="projekt-bild"
-                src="bilder/typografie-plakat.png"
-                alt="Typografie-Plakat">
+            <p>
+                Webdesign · HTML/CSS ·
+                Eigenständige Umsetzung
+            </p>
 
             <p>
-                Mein erstes Gestaltungsprojekt aus der Umschulung.
-                Hier habe ich mich mit Typografie, Schriftwirkung
-                und Gestaltung beschäftigt.
+                Eigenständige Umsetzung einer Fanseite mit HTML
+                und CSS – von der Seitenstruktur über die
+                Navigation bis zum fertigen Layout.
             </p>
+
+            <img
+                src="bilder/H96.png"
+                alt="Screenshot der Hannover 96 Fanseite"
+                class="projekt-bild">
+
+
+            <a
+                href="hannover96/index.html"
+                class="projekt-link">
+                Projekt ansehen →
+            </a>
+
+        </div>
+
+    </details>
+
+
+
+    <!-- DTP-BROSCHÜRE -->
+
+    <details class="projekt">
+
+        <summary>
+
+            <span class="projekt-jahr">2026</span>
+
+            <span class="projekt-titel">
+                DTP-Broschüre
+            </span>
+
+        </summary>
+
+
+        <div class="projekt-inhalt">
+
+            <p>
+                DTP · Broschürengestaltung · InDesign
+            </p>
+
+
+            <!-- DIGITALE BROSCHÜRE -->
+
+            <div class="broschuere-bereich">
+
+                <div class="broschuere-raum">
+
+                    <div class="broschuere">
+
+                        <div class="broschuere-seite broschuere-links">
+
+                            <img
+                                src="bilder/brosch/seite-01.png"
+                                alt="Broschürenseite 1">
+
+                        </div>
+
+
+                        <div class="broschuere-seite broschuere-rechts">
+
+                            <img
+                                src="bilder/brosch/seite-02.png"
+                                alt="Broschürenseite 2">
+
+                        </div>
+
+
+                        <div
+                            class="broschuere-flip"
+                            id="broschFlip">
+
+                            <div class="flip-seite flip-vorne">
+                                <img src="" alt="">
+                            </div>
+
+                            <div class="flip-seite flip-hinten">
+                                <img src="" alt="">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <p class="broschuere-hinweis">
+                    Zum Blättern wischen.
+                </p>
+
+
+                <div class="broschuere-steuerung">
+
+                    <button
+                        type="button"
+                        id="brosch-links">
+                        ←
+                    </button>
+
+                    <button
+                        type="button"
+                        id="brosch-rechts">
+                        →
+                    </button>
+
+                </div>
+
+
+                <p
+                    class="broschuere-status"
+                    id="brosch-status">
+                    Seite 1 von 20
+                </p>
+
+            </div>
 
         </div>
 
@@ -98,8 +311,14 @@
             <div class="karten-bereich">
 
                 <p class="karten-hinweis">
-                    Karte öffnen und anschließend mit der Maus
-                    ziehen, um sie in 3D zu drehen.
+                    <span class="hinweis-maus">
+                        Karte öffnen und anschließend mit der Maus
+                        ziehen, um sie in 3D zu drehen.
+                    </span>
+                    <span class="hinweis-touch">
+                        Karte öffnen und anschließend mit dem Finger
+                        ziehen, um sie in 3D zu drehen.
+                    </span>
                 </p>
 
 
@@ -259,7 +478,7 @@
 
 
 
-<!-- DTP-BROSCHÜRE -->
+<!-- TYPOGRAFIE-PLAKAT -->
 
 <details class="projekt">
 
@@ -268,7 +487,7 @@
         <span class="projekt-jahr">2026</span>
 
         <span class="projekt-titel">
-            DTP-Broschüre
+            Typografie-Plakat
         </span>
 
     </summary>
@@ -276,65 +495,25 @@
 
     <div class="projekt-inhalt">
 
-        <p>
-            DTP · Broschürengestaltung · InDesign
+        <p>Plakatgestaltung</p>
+
+        <div class="zoom-bild">
+            <img
+                class="projekt-bild"
+                src="bilder/typografie-plakat.png"
+                alt="Typografie-Plakat">
+        </div>
+
+        <p class="zoom-hinweis">
+            Zum Vergrößern anklicken – im großen Bild an eine Stelle klicken, um genau dort hineinzuzoomen.
         </p>
 
-
-        <!-- DIGITALE BROSCHÜRE -->
-
-        <div class="broschuere-bereich">
-
-            <div class="broschuere-raum">
-
-                <div class="broschuere">
-
-                    <div class="broschuere-seite broschuere-links">
-
-                        <img
-                            src="bilder/brosch/seite-01.png"
-                            alt="Broschürenseite 1">
-
-                    </div>
-
-
-                    <div class="broschuere-seite broschuere-rechts">
-
-                        <img
-                            src="bilder/brosch/seite-02.png"
-                            alt="Broschürenseite 2">
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="broschuere-steuerung">
-
-                <button
-                    type="button"
-                    id="brosch-links">
-                    ←
-                </button>
-
-                <button
-                    type="button"
-                    id="brosch-rechts">
-                    →
-                </button>
-
-            </div>
-
-
-            <p
-                class="broschuere-status"
-                id="brosch-status">
-                Seite 1 von 20
-            </p>
-
-        </div>
+        <p>
+            Der Einstieg in die Umschulung: Auseinandersetzung
+            mit Schriftklassifikation, Schriftwirkung und
+            typografischer Gestaltung, umgesetzt in einem
+            eigenständigen Plakat.
+        </p>
 
     </div>
 
@@ -342,138 +521,14 @@
 
 
 
-    <!-- HANNOVER 96 -->
+<div class="zeitleiste-start reveal">
 
-    <details class="projekt">
+    <p>
+        Mein erstes Projekt in der Umschulung –
+        der Ausgangspunkt für alles, was oben zu sehen ist.
+    </p>
 
-        <summary>
-
-            <span class="projekt-jahr">2026</span>
-
-            <span class="projekt-titel">
-                Hannover 96
-            </span>
-
-        </summary>
-
-
-        <div class="projekt-inhalt">
-
-            <p>
-                Übungsaufgabe · Webdesign · HTML/CSS ·
-                Umsetzung und Anwendung erlernter Kenntnisse
-            </p>
-
-            <p>
-                Eine Übungsaufgabe aus der Umschulung,
-                um erlernte Kenntnisse selbstständig anzuwenden
-                und praktisch umzusetzen.
-            </p>
-			
-			<img
-    src="bilder/H96.png"
-    alt="Screenshot der Hannover 96 Fanseite"
-    class="projekt-bild">
-			
-			
-			<a
-    href="hannover96/index.html"
-    class="projekt-link">
-    Projekt ansehen →
-</a>
-
-        </div>
-
-    </details>
-
-
-
-    <!-- NEULAND LIST -->
-
-<details class="projekt">
-
-    <summary>
-
-        <span class="projekt-jahr">2026</span>
-
-        <span class="projekt-titel">
-            Neuland List e.V.
-        </span>
-
-    </summary>
-
-
-    <div class="projekt-inhalt">
-
-        <p>
-            Aktuelles Webdesign-Projekt · HTML/CSS ·
-            Responsive Design
-        </p>
-
-        <p>
-            Aktuelles, noch nicht abgeschlossenes
-            Webdesign-Projekt für einen Kleingartenverein.
-        </p>
-
-
-        <img
-            src="bilder/kleingarten.png"
-            alt="Screenshot der Kleingärtnerverein Neuland List e.V. Website"
-            class="projekt-bild">
-
-
-        <a
-            href="kgv-neu/index.html"
-            class="projekt-link">
-            Projekt ansehen →
-        </a>
-
-
-        <div class="logo-projekt">
-
-            <h3>Aus alt mach neu</h3>
-
-            <p>
-                Überarbeitung des bestehenden Vereinslogos
-                im Rahmen des Webdesign-Projekts für den
-                Kleingärtnerverein Neuland List e.V.
-            </p>
-
-            <div class="logo-vergleich">
-
-                <div class="logo-item">
-
-                    <span>Altes Logo</span>
-
-                    <img
-                        src="bilder/kgv-alt.png"
-                        alt="Altes Logo des Kleingärtnervereins Neuland List e.V.">
-
-                </div>
-
-
-                <div class="logo-pfeil">
-                    →
-                </div>
-
-
-                <div class="logo-item">
-
-                    <span>Neues Logo</span>
-
-                    <img
-                        src="bilder/kgv-logo-neu.png"
-                        alt="Neues Logo des Kleingärtnervereins Neuland List e.V.">
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</details>
+</div>
 
 
 </section>
@@ -537,6 +592,47 @@
 
 </footer>
 
+
+<div class="lightbox" id="lightbox">
+
+    <button
+        type="button"
+        class="lightbox-schliessen"
+        id="lightboxSchliessen"
+        aria-label="Schließen">
+        ✕
+    </button>
+
+    <div class="lightbox-rahmen">
+
+        <img
+            id="lightboxBild"
+            src=""
+            alt="">
+
+    </div>
+
+    <div class="lightbox-zoom-steuerung">
+
+        <button
+            type="button"
+            id="lightboxVerkleinern"
+            aria-label="Verkleinern">
+            −
+        </button>
+
+        <span id="lightboxZoomstand">100%</span>
+
+        <button
+            type="button"
+            id="lightboxVergroessern"
+            aria-label="Vergrößern">
+            +
+        </button>
+
+    </div>
+
+</div>
 
 
 <script src="js/script.js"></script>

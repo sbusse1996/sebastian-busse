@@ -6,7 +6,11 @@
 				margin: 0;
 				padding:0;
 				box-sizing: border-box;
-			}		
+			}
+
+html {
+	scroll-behavior: smooth;
+}
 				
 body{
 	background-color: #1f1f1f;
@@ -114,5 +118,35 @@ header p{
 	width: 250px;
 	padding: 20px;
 	margin: 15px;
-	
+
+}
+
+.verein,
+.mannschaft,
+.stadion-info,
+.kontakt {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 50px 40px;
+}
+
+.verein p,
+.mannschaft p,
+.stadion-info p,
+.kontakt p {
+	font-size: 18px;
+	line-height: 1.6;
+	max-width: 700px;
+	color: #cccccc;
+}
+
+@media (max-width: 700px) {
+
+	.verein,
+	.mannschaft,
+	.stadion-info,
+	.kontakt {
+		padding: 40px 20px;
+	}
+
 }

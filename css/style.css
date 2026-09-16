@@ -50,6 +50,10 @@ header p {
     color: #183C32;
 }
 
+header p span {
+    display: inline;
+}
+
 
 /* ==================================================
    MAIN
@@ -88,6 +92,92 @@ main {
 
 .projekt:last-child {
     border-bottom: 1px solid #E5E9E6;
+}
+
+
+.reveal {
+    opacity: 0;
+
+    transform: translateY(22px);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.reveal-sichtbar {
+    opacity: 1;
+
+    transform: none;
+}
+
+
+.zeitleiste-start {
+
+    position: relative;
+
+    margin: 10px 0 0;
+
+    padding: 28px 0 0;
+
+    text-align: center;
+}
+
+.zeitleiste-start::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 1px;
+    height: 20px;
+
+    background: #E5E9E6;
+}
+
+.zeitleiste-start p {
+
+    margin: 0;
+
+    font-size: 12px;
+
+    font-style: italic;
+
+    color: #69716D;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+    .projekt summary {
+        transition: background-color 0.25s ease;
+    }
+
+    .projekt summary:hover {
+        background-color: #F6F8F6;
+    }
+
+    .projekt summary:hover .projekt-titel {
+        color: #0f2a22;
+    }
+
+    .projekt-bild {
+        transition:
+            transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+            box-shadow 0.45s ease;
+    }
+
+    .projekt-bild:hover {
+        transform: scale(1.015);
+
+        box-shadow: 0 14px 30px rgba(24, 60, 50, 0.14);
+    }
+
 }
 
 
@@ -141,6 +231,8 @@ main {
     letter-spacing: 1px;
 
     color: #183C32;
+
+    transition: color 0.25s ease;
 }
 
 
@@ -196,6 +288,27 @@ main {
     font-size:13px !important;
 
     color: #69716D !important;
+}
+
+.karten-hinweis .hinweis-touch {
+    display: none;
+}
+
+@media (pointer: coarse) {
+
+    .karten-hinweis .hinweis-maus {
+        display: none;
+    }
+
+    .karten-hinweis .hinweis-touch {
+        display: inline;
+    }
+
+    .karten-objekt,
+    .broschuere-raum {
+        touch-action: pan-y;
+    }
+
 }
 
 
@@ -528,6 +641,17 @@ main {
    FOOTER
    ================================================== */
 
+footer {
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: 20px 30px 40px;
+
+    border-top: 1px solid #E5E9E6;
+}
+
 footer p {
 
     margin: 0;
@@ -547,6 +671,14 @@ footer p {
     header {
         padding: 30px 20px 20px;
     }
+	
+	header p span {
+    display: block;
+	}
+	
+	header p span:last-child {
+    white-space: nowrap;
+}
 
     main {
         padding: 30px 20px 60px;
@@ -562,6 +694,12 @@ footer p {
         padding-left: 55px;
     }
 
+    .karten-bereich,
+    .broschuere-bereich {
+        margin-left: -55px;
+        width: calc(100% + 55px);
+    }
+
     .karten-raum {
         height: 500px;
     }
@@ -569,6 +707,8 @@ footer p {
     .karten-objekt {
         width: 340px;
         height: 476px;
+
+        scale: clamp(0.68, calc((100vw - 64px) / 340), 0.85);
     }
 
     .karte-face {
@@ -648,23 +788,6 @@ footer p {
    EINZELSEITE / DOPPELSEITE
    ================================================== */
 
-.broschuere.single {
-
-    width: 425px;
-}
-
-
-.broschuere.doppelseite {
-
-    width: 850px;
-}
-
-
-.broschuere.single .broschuere-seite {
-
-    width: 100%;
-}
-
 
 /* ==================================================
    EINZELNE SEITE
@@ -706,6 +829,157 @@ footer p {
 .broschuere-seite:first-child {
 
     border-right: 1px solid #d5d9d6;
+}
+
+
+
+.broschuere.single .broschuere-seite:first-child {
+
+    border-right: none;
+}
+
+.broschuere-flip {
+
+    position: absolute;
+
+    top: 0;
+
+    width: 50%;
+    height: 100%;
+
+    transform-style: preserve-3d;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transform: rotateY(0deg);
+
+    transition: transform 0.75s cubic-bezier(0.61, 0.02, 0.42, 0.99);
+
+    z-index: 5;
+}
+
+.broschuere-flip.aktiv {
+
+    opacity: 1;
+}
+
+.broschuere-flip.richtung-vor {
+
+    right: 0;
+    left: auto;
+
+    transform-origin: left center;
+}
+
+.broschuere-flip.richtung-vor.dreht {
+
+    transform: rotateY(-180deg);
+}
+
+.broschuere-flip.richtung-zurueck {
+
+    left: 0;
+    right: auto;
+
+    transform-origin: right center;
+}
+
+.broschuere-flip.richtung-zurueck.dreht {
+
+    transform: rotateY(180deg);
+}
+
+
+.flip-seite {
+
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    backface-visibility: hidden;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.flip-seite img {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.flip-hinten {
+
+    transform: rotateY(180deg);
+}
+.flip-vorne::after,
+.flip-hinten::after {
+
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    pointer-events: none;
+}
+
+.broschuere-flip.richtung-vor .flip-vorne::after {
+    background: linear-gradient(to right, rgba(0, 0, 0, .16), rgba(0, 0, 0, 0) 35%);
+}
+
+.broschuere-flip.richtung-vor .flip-hinten::after {
+    background: linear-gradient(to left, rgba(0, 0, 0, .16), rgba(0, 0, 0, 0) 35%);
+}
+
+.broschuere-flip.richtung-zurueck .flip-vorne::after {
+    background: linear-gradient(to left, rgba(0, 0, 0, .16), rgba(0, 0, 0, 0) 35%);
+}
+
+.broschuere-flip.richtung-zurueck .flip-hinten::after {
+    background: linear-gradient(to right, rgba(0, 0, 0, .16), rgba(0, 0, 0, 0) 35%);
+}
+
+@keyframes broschuere-schatten {
+
+    0%   { box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
+    50%  { box-shadow: 0 25px 45px rgba(0, 0, 0, 0.28); }
+    100% { box-shadow: 0 0 0 rgba(0, 0, 0, 0); }
+}
+
+.broschuere-flip.dreht {
+
+    animation: broschuere-schatten 0.75s ease;
+}
+
+
+.broschuere-hinweis {
+
+    display: none;
+
+    margin-top: 14px !important;
+
+    text-align: center;
+
+    font-size: 12px !important;
+
+    color: #69716D !important;
+}
+
+@media (pointer: coarse) {
+
+    .broschuere-hinweis {
+        display: block;
+    }
+
 }
 
 
@@ -755,6 +1029,17 @@ footer p {
     color: #ffffff;
 }
 
+.broschuere-steuerung button:disabled {
+
+    opacity: 0.4;
+
+    cursor: default;
+
+    background: #ffffff;
+
+    color: #183C32;
+}
+
 
 /* ==================================================
    STATUS
@@ -792,107 +1077,12 @@ footer p {
         padding: 20px 0;
     }
 
-}
+    .broschuere-seite img,
+    .flip-seite img {
 
-/* ==================================================
-   PROJEKT-LINK
-   ================================================== */
+        transform: scale(1.06);
+    }
 
-.projekt-link {
-    display: inline-block;
-
-    margin-top: 5px;
-
-    padding: 8px 14px;
-
-    border: 1px solid #183C32;
-
-    color: #183C32;
-
-    text-decoration: none;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 10px;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease;
-}
-
-
-.projekt-link:hover {
-    background: #183C32;
-    color: #ffffff;
-}
-
-/* ==================================================
-   LOGO-VERGLEICH – NEULAND LIST
-   ================================================== */
-
-.logo-projekt {
-    margin-top: 30px;
-}
-
-.logo-projekt h3 {
-    margin: 0 0 8px 0;
-
-    font-family: Arial, sans-serif;
-    font-size: 13px;
-    font-weight: bold;
-
-    color: #183C32;
-}
-
-.logo-projekt p {
-    margin: 0 0 20px 0;
-
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    line-height: 1.5;
-
-    color: #202522;
-}
-
-
-.logo-vergleich {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-
-.logo-item {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-
-    flex: 1;
-}
-
-
-.logo-item span {
-    font-family: Arial, sans-serif;
-    font-size: 9.5px;
-
-    color: #69716D;
-}
-
-
-.logo-item img {
-    display: block;
-
-    width: 100%;
-    max-width: 280px;
-    height: auto;
-}
-
-
-.logo-pfeil {
-    font-family: Arial, sans-serif;
-    font-size: 20px;
-
-    color: #183C32;
 }
 
 /* ==================================================
@@ -900,116 +1090,415 @@ footer p {
    ================================================== */
 
 .footer {
-	width: 100%;
-	
+    width: 100%;
     margin-top: 80px;
-
-    padding: 40px 0 20px 0;
-
+    padding: 40px 0 20px;
     background: #202522;
     color: #ffffff;
 }
-
 
 .footer-inhalt {
     display: flex;
     justify-content: space-between;
     gap: 40px;
-
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 18px;
 }
 
-
 .footer-person h2 {
-    margin: 0 0 8px 0;
-
+    margin: 0 0 8px;
     font-family: Arial, sans-serif;
     font-size: 18px;
     font-weight: bold;
-
     color: #ffffff;
 }
 
-
 .footer-person p {
     margin: 0;
-
     font-family: Arial, sans-serif;
     font-size: 10px;
-
     color: #E5E9E6;
 }
-
 
 .footer-kontakt {
     text-align: right;
 }
 
-
 .footer-kontakt p {
-    margin: 0 0 10px 0;
-
+    margin: 0 0 10px;
     font-family: Arial, sans-serif;
     font-size: 10px;
     line-height: 1.5;
-
     color: #E5E9E6;
 }
-
 
 .footer-kontakt a {
     color: #ffffff;
     text-decoration: none;
-
-    transition: color 0.2s ease;
 }
-
 
 .footer-kontakt a:hover {
     color: #E5E9E6;
 }
 
-
 .footer-bottom {
     display: flex;
     justify-content: space-between;
-
     max-width: 1100px;
-    margin: 25px auto 0 auto;
-    padding: 15px 18px 0 18px;
-
+    margin: 25px auto 0;
+    padding: 15px 18px 0;
     border-top: 1px solid #69716D;
-
     font-family: Arial, sans-serif;
     font-size: 9px;
-
     color: #69716D;
 }
 
-
 /* ==================================================
-   FOOTER – MOBILE
+   FOOTER – HANDY
    ================================================== */
 
 @media (max-width: 600px) {
 
+    .footer {
+        padding: 40px 20px 20px;
+    }
+
     .footer-inhalt {
         flex-direction: column;
         gap: 25px;
+        padding: 0;
     }
-
 
     .footer-kontakt {
         text-align: left;
     }
 
-
     .footer-bottom {
         flex-direction: column;
         gap: 8px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+
+.zoom-bild {
+
+    cursor: zoom-in;
+}
+
+
+.zoom-hinweis {
+
+    margin-top: 10px !important;
+
+    font-size: 12px !important;
+
+    color: #69716D !important;
+}
+
+
+.lightbox {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background: rgba(16, 22, 19, 0.92);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0s linear 0.3s;
+
+    cursor: zoom-out;
+}
+
+.lightbox.aktiv {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transition:
+        opacity 0.3s ease,
+        visibility 0s linear 0s;
+}
+
+.lightbox-rahmen {
+
+    flex: 1;
+
+    min-height: 0;
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.lightbox img {
+
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+
+    transform: scale(var(--lightbox-zoom, 1));
+
+    transform-origin:
+        var(--lightbox-zoom-x, 50%)
+        var(--lightbox-zoom-y, 50%);
+
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+    cursor: zoom-in;
+}
+
+.lightbox-zoom-steuerung {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 18px;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-family: Arial, sans-serif;
+}
+
+#lightboxZoomstand {
+
+    min-width: 46px;
+
+    text-align: center;
+}
+
+.lightbox-zoom-steuerung button {
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.lightbox-zoom-steuerung button:hover {
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border-color: #ffffff;
+}
+
+.lightbox-zoom-steuerung button:disabled {
+
+    opacity: 0.35;
+
+    cursor: default;
+
+    background: transparent;
+}
+
+.lightbox-schliessen {
+
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.4);
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: #ffffff;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.lightbox-schliessen:hover {
+
+    background: rgba(255, 255, 255, 0.12);
+
+    border-color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lightbox,
+    .lightbox img {
+        transition: none;
     }
 
 }
 
+
+.logo-projekt {
+
+    margin-top: 40px;
+
+    padding-top: 30px;
+
+    border-top: 1px solid #E5E9E6;
+}
+
+.logo-projekt h3 {
+
+    margin: 0 0 10px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    color: #183C32;
+}
+
+.logo-vergleich {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 24px;
+
+    margin-top: 20px;
+}
+
+.logo-item {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.logo-item span {
+
+    font-size: 12px;
+
+    letter-spacing: 0.5px;
+
+    color: #69716D;
+}
+
+.logo-zoom {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 220px;
+    height: 130px;
+
+    background: #F6F8F6;
+
+    border: 1px solid #E5E9E6;
+}
+
+.logo-zoom img {
+
+    max-width: 85%;
+    max-height: 85%;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+}
+
+.logo-pfeil {
+
+    font-size: 22px;
+
+    color: #183C32;
+}
+
+@media (max-width: 700px) {
+
+    .logo-vergleich {
+        gap: 16px;
+    }
+
+    .logo-zoom {
+        width: 160px;
+        height: 100px;
+    }
+
+    .logo-pfeil {
+        transform: rotate(90deg);
+    }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    *:not(.broschuere-flip) {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+}

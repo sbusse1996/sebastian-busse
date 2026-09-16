@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -11,6 +15,8 @@ body {
 }
 
 header {
+    position: relative;
+
     background-color: #2d4a34;
     color: white;
     padding: 20px 40px;
@@ -117,6 +123,109 @@ nav a:hover {
     height: auto;
 }
 
+.galerie-platzhalter {
+    width: 280px;
+    height: 190px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2d4a34, #6b8e5a);
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+}
+
+.galerie-platzhalter span {
+    color: white;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+.verein-info,
+.gartenplan-info,
+.freie-gaerten-info {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 40px 60px;
+}
+
+.verein-info h2,
+.gartenplan-info h2,
+.freie-gaerten-info h2 {
+    color: #2d4a34;
+    margin-bottom: 15px;
+}
+
+.vorstand-liste {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.vorstand-person {
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.vorstand-name {
+    font-weight: bold;
+    color: #2d4a34;
+}
+
+.vorstand-amt {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.garten-liste {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.garten-eintrag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    padding: 14px 20px;
+}
+
+.garten-nr {
+    font-weight: bold;
+    color: #2d4a34;
+    min-width: 110px;
+}
+
+.garten-groesse {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.garten-status {
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.status-frei {
+    background-color: #dff3e3;
+    color: #2d4a34;
+}
+
+.status-bald {
+    background-color: #fdecc8;
+    color: #8a5a00;
+}
+
 footer {
     background-color: #1e2a24;
     color: #ddd;
@@ -207,19 +316,32 @@ footer {
         flex-direction: column;
         align-items: center;
     }
+    .vorstand-liste {
+        grid-template-columns: 1fr;
+    }
+    .verein-info,
+    .gartenplan-info,
+    .freie-gaerten-info {
+        padding: 20px 20px 40px;
+    }
 	.logo-link {
     flex: 1 1 auto;
     min-width: 0;
+    padding-right: 50px;
 	}
 
 .logo-link h1 {
     font-size: 1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
 	}
 
 .burger {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
     flex-shrink: 0;
 	}
 }

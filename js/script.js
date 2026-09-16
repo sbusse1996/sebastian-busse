@@ -1,3 +1,430 @@
+const reduzierteBewegung =
+    window.matchMedia("(prefers-reduced-motion: reduce)");
+
+
+class ProjektAkkordeon {
+
+    constructor(element) {
+
+        this.element = element;
+
+        this.summary =
+            element.querySelector("summary");
+
+        this.inhalt =
+            element.querySelector(".projekt-inhalt");
+
+        this.animation = null;
+
+        this.schliesstGerade = false;
+
+        this.oeffnetGerade = false;
+
+        this.summary.addEventListener(
+            "click",
+            (event) => this.klick(event)
+        );
+
+    }
+
+
+    klick(event) {
+
+        event.preventDefault();
+
+        if (reduzierteBewegung.matches) {
+
+            this.element.open =
+                !this.element.open;
+
+            return;
+
+        }
+
+        this.element.style.overflow =
+            "hidden";
+
+        if (this.schliesstGerade || !this.element.open) {
+
+            this.oeffnen();
+
+        } else if (this.oeffnetGerade || this.element.open) {
+
+            this.schliessen();
+
+        }
+
+    }
+
+
+    schliessen() {
+
+        this.schliesstGerade = true;
+
+        const startHoehe =
+            `${this.element.offsetHeight}px`;
+
+        const endHoehe =
+            `${this.summary.offsetHeight}px`;
+
+        if (this.animation) {
+
+            this.animation.cancel();
+
+        }
+
+        this.animation = this.element.animate(
+            {
+                height: [startHoehe, endHoehe]
+            },
+            {
+                duration: 350,
+                easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+            }
+        );
+
+        this.animation.onfinish =
+            () => this.animationEnde(false);
+
+        this.animation.oncancel =
+            () => this.schliesstGerade = false;
+
+    }
+
+
+    oeffnen() {
+
+        this.element.style.height =
+            `${this.element.offsetHeight}px`;
+
+        this.element.open = true;
+
+        window.setTimeout(
+            () => this.erweitern(),
+            20
+        );
+
+    }
+
+
+    erweitern() {
+
+        this.oeffnetGerade = true;
+
+        const startHoehe =
+            `${this.element.offsetHeight}px`;
+
+        const endHoehe =
+            `${this.summary.offsetHeight + this.inhalt.offsetHeight}px`;
+
+        if (this.animation) {
+
+            this.animation.cancel();
+
+        }
+
+        this.animation = this.element.animate(
+            {
+                height: [startHoehe, endHoehe]
+            },
+            {
+                duration: 350,
+                easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+            }
+        );
+
+        this.animation.onfinish =
+            () => this.animationEnde(true);
+
+        this.animation.oncancel =
+            () => this.oeffnetGerade = false;
+
+    }
+
+
+    animationEnde(offen) {
+
+        this.element.open = offen;
+
+        this.animation = null;
+
+        this.schliesstGerade = false;
+
+        this.oeffnetGerade = false;
+
+        this.element.style.height = "";
+
+        this.element.style.overflow = "";
+
+    }
+
+}
+
+
+document.querySelectorAll(".projekt").forEach(
+
+    (element) => new ProjektAkkordeon(element)
+
+);
+
+
+if (!reduzierteBewegung.matches && "IntersectionObserver" in window) {
+
+    const revealBeobachter = new IntersectionObserver(
+
+        (eintraege) => {
+
+            eintraege.forEach((eintrag) => {
+
+                if (eintrag.isIntersecting) {
+
+                    eintrag.target.classList.add(
+                        "reveal-sichtbar"
+                    );
+
+                    revealBeobachter.unobserve(
+                        eintrag.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12,
+            rootMargin: "0px 0px -60px 0px"
+        }
+    );
+
+    document.querySelectorAll(".projekt, .zeitleiste-start").forEach((element) => {
+
+        element.classList.add("reveal");
+
+        revealBeobachter.observe(element);
+
+    });
+
+}
+
+
+const lightbox =
+    document.querySelector("#lightbox");
+
+const lightboxRahmen =
+    document.querySelector(".lightbox-rahmen");
+
+const lightboxBild =
+    document.querySelector("#lightboxBild");
+
+const lightboxSchliessenButton =
+    document.querySelector("#lightboxSchliessen");
+
+const lightboxVerkleinernButton =
+    document.querySelector("#lightboxVerkleinern");
+
+const lightboxVergroessernButton =
+    document.querySelector("#lightboxVergroessern");
+
+const lightboxZoomstand =
+    document.querySelector("#lightboxZoomstand");
+
+
+const lightboxZoomStufen =
+    [1, 1.5, 2];
+
+let lightboxZoomIndex = 0;
+
+
+function lightboxZoomAnzeigen() {
+
+    const stufe =
+        lightboxZoomStufen[lightboxZoomIndex];
+
+    lightboxBild.style.setProperty(
+        "--lightbox-zoom",
+        stufe
+    );
+
+    lightboxZoomstand.textContent =
+        Math.round(stufe * 100) + "%";
+
+    lightboxVerkleinernButton.disabled =
+        (lightboxZoomIndex === 0);
+
+    lightboxVergroessernButton.disabled =
+        (lightboxZoomIndex === lightboxZoomStufen.length - 1);
+
+}
+
+
+function lightboxUrsprungZuruecksetzen() {
+
+    lightboxBild.style.setProperty(
+        "--lightbox-zoom-x",
+        "50%"
+    );
+
+    lightboxBild.style.setProperty(
+        "--lightbox-zoom-y",
+        "50%"
+    );
+
+}
+
+
+function lightboxOeffnen(quelle, altText) {
+
+    lightboxBild.src = quelle;
+
+    lightboxBild.alt = altText;
+
+    lightboxZoomIndex = 0;
+
+    lightboxUrsprungZuruecksetzen();
+
+    lightboxZoomAnzeigen();
+
+    lightbox.classList.add("aktiv");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function lightboxSchliessen() {
+
+    lightbox.classList.remove("aktiv");
+
+    document.body.style.overflow = "";
+
+}
+
+
+document.querySelectorAll(".zoom-bild").forEach((wrapper) => {
+
+    const bild =
+        wrapper.querySelector("img");
+
+    wrapper.addEventListener(
+        "click",
+        () => lightboxOeffnen(bild.src, bild.alt)
+    );
+
+});
+
+
+lightboxSchliessenButton.addEventListener(
+    "click",
+    lightboxSchliessen
+);
+
+
+lightboxVerkleinernButton.addEventListener(
+    "click",
+    function () {
+
+        if (lightboxZoomIndex > 0) {
+
+            lightboxZoomIndex -= 1;
+
+            lightboxZoomAnzeigen();
+
+        }
+
+    }
+);
+
+
+lightboxVergroessernButton.addEventListener(
+    "click",
+    function () {
+
+        if (lightboxZoomIndex < lightboxZoomStufen.length - 1) {
+
+            lightboxZoomIndex += 1;
+
+            lightboxZoomAnzeigen();
+
+        }
+
+    }
+);
+
+
+lightbox.addEventListener(
+    "click",
+    function (event) {
+
+        if (event.target === lightbox ||
+            event.target === lightboxRahmen) {
+
+            lightboxSchliessen();
+
+        }
+
+    }
+);
+
+
+lightboxBild.addEventListener(
+    "click",
+    function (event) {
+
+        event.stopPropagation();
+
+        const rahmen =
+            lightboxBild.getBoundingClientRect();
+
+        const x =
+            ((event.clientX - rahmen.left) / rahmen.width) * 100;
+
+        const y =
+            ((event.clientY - rahmen.top) / rahmen.height) * 100;
+
+        lightboxBild.style.setProperty(
+            "--lightbox-zoom-x",
+            x + "%"
+        );
+
+        lightboxBild.style.setProperty(
+            "--lightbox-zoom-y",
+            y + "%"
+        );
+
+        if (lightboxZoomIndex < lightboxZoomStufen.length - 1) {
+
+            lightboxZoomIndex += 1;
+
+        } else {
+
+            lightboxZoomIndex = 0;
+
+            lightboxUrsprungZuruecksetzen();
+
+        }
+
+        lightboxZoomAnzeigen();
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function (event) {
+
+        if (event.key === "Escape" &&
+            lightbox.classList.contains("aktiv")) {
+
+            lightboxSchliessen();
+
+        }
+
+    }
+);
+
+
 /* ==================================================
    ELEMENTE
    ================================================== */
@@ -399,7 +826,38 @@ const broschRechtsSeite =
 const broschStatus =
     document.querySelector("#brosch-status");
 
+const broschuereRaum =
+    document.querySelector(".broschuere-raum");
+
+const broschFlip =
+    document.querySelector("#broschFlip");
+
+const broschFlipVorne =
+    broschFlip.querySelector(".flip-vorne img");
+
+const broschFlipHinten =
+    broschFlip.querySelector(".flip-hinten img");
+
+
 let broschSeite = 1;
+
+let broschAnimiertGerade = false;
+
+
+function broschIstDoppelseite(seite) {
+
+    return seite !== 1 && seite !== 20;
+
+}
+
+
+function broschBildpfad(seite) {
+
+    return "bilder/brosch/seite-" +
+        String(seite).padStart(2, "0") +
+        ".png";
+
+}
 
 
 /* ==================================================
@@ -413,6 +871,26 @@ function broschuereAnzeigen() {
         "doppelseite"
     );
 
+    broschFlip.classList.remove(
+        "aktiv",
+        "dreht",
+        "richtung-vor",
+        "richtung-zurueck"
+    );
+
+    broschFlip.style.width = "";
+
+    broschFlip.style.height = "";
+
+    broschRechtsSeite.style.opacity = "";
+
+    broschRechtsSeite.style.transition = "";
+
+
+    /*
+       TITELSEITE
+       Seite 1 steht alleine.
+    */
 
     if (broschSeite === 1) {
 
@@ -425,7 +903,7 @@ function broschuereAnzeigen() {
             "none";
 
         broschLinksSeite.querySelector("img").src =
-            "bilder/brosch/seite-01.png";
+            broschBildpfad(1);
 
         broschLinksSeite.querySelector("img").alt =
             "Broschürenseite 1";
@@ -436,6 +914,11 @@ function broschuereAnzeigen() {
         return;
     }
 
+
+    /*
+       LETZTE SEITE
+       Seite 20 steht alleine.
+    */
 
     if (broschSeite === 20) {
 
@@ -448,7 +931,7 @@ function broschuereAnzeigen() {
             "none";
 
         broschLinksSeite.querySelector("img").src =
-            "bilder/brosch/seite-20.png";
+            broschBildpfad(20);
 
         broschLinksSeite.querySelector("img").alt =
             "Broschürenseite 20";
@@ -460,6 +943,10 @@ function broschuereAnzeigen() {
     }
 
 
+    /*
+       DOPPELSEITE
+    */
+
     broschuere.classList.add("doppelseite");
 
     broschLinksSeite.style.display =
@@ -470,15 +957,11 @@ function broschuereAnzeigen() {
 
 
     broschLinksSeite.querySelector("img").src =
-        "bilder/brosch/seite-" +
-        String(broschSeite).padStart(2, "0") +
-        ".png";
+        broschBildpfad(broschSeite);
 
 
     broschRechtsSeite.querySelector("img").src =
-        "bilder/brosch/seite-" +
-        String(broschSeite + 1).padStart(2, "0") +
-        ".png";
+        broschBildpfad(broschSeite + 1);
 
 
     broschLinksSeite.querySelector("img").alt =
@@ -499,60 +982,260 @@ function broschuereAnzeigen() {
 }
 
 
-/* ==================================================
-   ZURÜCK
-   ================================================== */
+function broschuereFlip(richtung, neueSeite) {
 
-broschLinks.addEventListener(
-    "click",
-    function () {
+    broschAnimiertGerade = true;
+
+    broschLinks.disabled = true;
+
+    broschRechts.disabled = true;
+
+
+    broschFlip.classList.remove(
+        "richtung-vor",
+        "richtung-zurueck",
+        "dreht"
+    );
+
+    broschRechtsSeite.style.opacity = "";
+
+    broschRechtsSeite.style.transition = "";
+
+    void broschFlip.offsetWidth;
+
+
+    if (richtung === "vor") {
+
+        broschFlipVorne.src =
+            broschBildpfad(broschSeite + 1);
+
+        broschFlipHinten.src =
+            broschBildpfad(neueSeite);
+
+        broschRechtsSeite.querySelector("img").src =
+            broschBildpfad(neueSeite + 1);
+
+        broschFlip.classList.add("richtung-vor");
+
+    } else {
+
+        broschFlipVorne.src =
+            broschBildpfad(broschSeite);
+
+        broschFlipHinten.src =
+            broschBildpfad(neueSeite + 1);
+
+        broschLinksSeite.querySelector("img").src =
+            broschBildpfad(neueSeite);
+
+        broschFlip.classList.add("richtung-zurueck");
+
+    }
+
+
+    broschFlip.classList.add("aktiv");
+
+    window.setTimeout(() => {
+
+        broschFlip.classList.add("dreht");
+
+    }, 20);
+
+
+    let flipFertigGelaufen = false;
+
+    const flipFertig = () => {
+
+        if (flipFertigGelaufen) {
+
+            return;
+
+        }
+
+        flipFertigGelaufen = true;
+
+        broschFlip.removeEventListener(
+            "transitionend",
+            flipFertig
+        );
+
+        window.clearTimeout(flipNotfallTimer);
+
+        broschSeite = neueSeite;
+
+        broschLinksSeite.querySelector("img").src =
+            broschBildpfad(broschSeite);
+
+        broschRechtsSeite.querySelector("img").src =
+            broschBildpfad(broschSeite + 1);
+
+        broschLinksSeite.querySelector("img").alt =
+            "Broschürenseite " + broschSeite;
+
+        broschRechtsSeite.querySelector("img").alt =
+            "Broschürenseite " + (broschSeite + 1);
+
+        broschStatus.textContent =
+            "Seiten " +
+            broschSeite +
+            "–" +
+            (broschSeite + 1) +
+            " von 20";
+
+        broschFlip.classList.remove(
+            "aktiv",
+            "dreht",
+            "richtung-vor",
+            "richtung-zurueck"
+        );
+
+        broschAnimiertGerade = false;
+
+        broschLinks.disabled = false;
+
+        broschRechts.disabled = false;
+
+    };
+
+    broschFlip.addEventListener(
+        "transitionend",
+        flipFertig
+    );
+
+    const flipNotfallTimer = window.setTimeout(
+        flipFertig,
+        900
+    );
+
+}
+
+
+function broschuereBlaettern(richtung) {
+
+    if (broschAnimiertGerade) {
+
+        return;
+
+    }
+
+
+    let neueSeite = broschSeite;
+
+
+    if (richtung === "vor") {
+
+        if (broschSeite === 20) {
+
+            return;
+
+        }
+
+        neueSeite =
+            (broschSeite === 1) ? 2 : broschSeite + 2;
+
+    } else {
 
         if (broschSeite <= 2) {
 
-            broschSeite = 1;
+            neueSeite = 1;
 
         } else if (broschSeite === 20) {
 
-            broschSeite = 18;
+            neueSeite = 18;
 
         } else {
 
-            broschSeite -= 2;
+            neueSeite = broschSeite - 2;
 
         }
+
+    }
+
+
+    const mitFlip =
+        broschIstDoppelseite(broschSeite) &&
+        broschIstDoppelseite(neueSeite);
+
+
+    if (mitFlip) {
+
+        broschuereFlip(richtung, neueSeite);
+
+    } else {
+
+        broschSeite = neueSeite;
 
         broschuereAnzeigen();
 
     }
+
+}
+
+
+broschLinks.addEventListener(
+    "click",
+    () => broschuereBlaettern("zurueck")
 );
-
-
-/* ==================================================
-   WEITER
-   ================================================== */
 
 broschRechts.addEventListener(
     "click",
-    function () {
+    () => broschuereBlaettern("vor")
+);
 
-        if (broschSeite === 20) {
+
+let broschTouchStartX = 0;
+
+let broschTouchStartY = 0;
+
+
+broschuereRaum.addEventListener(
+    "touchstart",
+    function (event) {
+
+        broschTouchStartX =
+            event.touches[0].clientX;
+
+        broschTouchStartY =
+            event.touches[0].clientY;
+
+    },
+    { passive: true }
+);
+
+
+broschuereRaum.addEventListener(
+    "touchend",
+    function (event) {
+
+        const bewegungX =
+            event.changedTouches[0].clientX -
+            broschTouchStartX;
+
+        const bewegungY =
+            event.changedTouches[0].clientY -
+            broschTouchStartY;
+
+
+        if (Math.abs(bewegungX) < 40 ||
+            Math.abs(bewegungX) < Math.abs(bewegungY)) {
+
             return;
+
         }
 
 
-        if (broschSeite === 1) {
+        if (bewegungX < 0) {
 
-            broschSeite = 2;
+            broschuereBlaettern("vor");
 
         } else {
 
-            broschSeite += 2;
+            broschuereBlaettern("zurueck");
 
         }
 
-        broschuereAnzeigen();
-
-    }
+    },
+    { passive: true }
 );
 
 
@@ -561,4 +1244,3 @@ broschRechts.addEventListener(
    ================================================== */
 
 broschuereAnzeigen();
-
